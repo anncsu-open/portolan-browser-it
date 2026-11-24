@@ -1,0 +1,33 @@
+// Designers Italia tokens, from bootstrap-italia 2.18.3,
+// src/scss/base/_variables.scss (line numbers below). The applier inserts this
+// file right before the browser imports Bootstrap's variables, so Bootstrap
+// builds its colour maps and base font from these values.
+$font-family-sans-serif: "Titillium Web", Geneva, Tahoma, sans-serif; // :685
+$headings-font-family: $font-family-sans-serif; // :614 is null, so headings use the base font
+$font-family-monospace: "Roboto Mono", monospace; // :686
+$border-radius: 4px; // :637
+$body-color: #1a1a1a; // $gray-900, :23 and :531
+$primary: #0066cc; // hsb(210, 100, 80), :54-59
+$secondary: #5d7083; // $gray-secondary, :83
+$dark: #1a1a1a;
+$headings-color: #1a1a1a; // :618 is null, so headings use the body colour
+$subheadings-color: $secondary;
+$link-color: $primary; // :1167
+$link-hover-color: #0052a3; // shift-color($link-color, 20%), :1168-1169
+
+// Type scale and components, from the same file.
+$font-size-base: 1rem; // :563
+$h1-font-size: $font-size-base * 2.5; // :576
+$h2-font-size: $font-size-base * 2; // :577
+$h3-font-size: $font-size-base * 1.75; // :578
+$headings-font-weight: 500; // :616
+$h1-font-weight: 500; // the browser's own heading weights, aligned with :616
+$h2-font-weight: 500;
+$link-decoration: underline; // :711
+$link-hover-decoration: underline;
+$btn-font-weight: 600; // :775
+$badge-font-size: 0.75em; // :2100
+$badge-font-weight: 700; // :2101
+// The browser's tables are compact ones; give them the regular padding.
+$table-cell-padding-y-sm: 0.5rem; // :1082
+$table-cell-padding-x-sm: 0.5rem; // :1083

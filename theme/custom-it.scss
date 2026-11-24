@@ -1,0 +1,157 @@
+// The Italian public administration look, after the browser's own rules.
+// The header and footer bands span the page although the browser renders
+// everything inside a centred container: a border image with a horizontal
+// outset paints the band beyond the box. It neither scrolls nor clips, so
+// the header's dropdown menus can still open over the page.
+#stac-browser {
+  // Upstream sets Archivo on card titles, a font this site does not load.
+  .catalog-card .card-title {
+    font-family: $headings-font-family;
+  }
+
+  // Headings at weight 500 (base/_variables.scss:616); the browser's own
+  // custom.scss sets h2 to 700 with a tighter spacing.
+  h2 {
+    font-weight: $headings-font-weight;
+    letter-spacing: normal;
+  }
+
+  // Page title with Bootstrap's responsive size, as bootstrap-italia does
+  // ($enable-rfs, base/_variables.scss:463): 40px from 1200px up, scaled
+  // below. The browser shrinks it in fixed steps under 1600px instead.
+  > header .page > .col-md-12 > .title h1 {
+    @include font-size($h1-font-size);
+  }
+
+  // Buttons as in bootstrap-italia (components/_buttons.scss:45). Header,
+  // small and link buttons keep their size. The browser's custom.scss sets
+  // primary buttons to weight 500, which overrides $btn-font-weight.
+  .btn:not(.btn-sm):not(.btn-header):not(.btn-link) {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .btn-primary,
+  .btn-outline-primary {
+    font-weight: $btn-font-weight;
+  }
+
+  // Badges at weight 700 (base/_variables.scss:2101); the browser sets 500.
+  .badge {
+    font-weight: $badge-font-weight;
+  }
+
+  // Inputs with only a bottom line (forms/_forms.scss:98; $input-border-width
+  // and $input-border-radius are 0, base/_variables.scss:752-753).
+  .form-control,
+  .form-select {
+    border-width: 0 0 1px;
+    border-color: #a3a3a3; // $input-border-color = $gray-400, :847
+    border-radius: 0;
+  }
+
+  // Cards with 4px corners (components/_card.scss:154), not the browser's 8px.
+  .card {
+    border-radius: $border-radius;
+  }
+
+  // Centre header: primary blue across the page, white title.
+  > header .site {
+    border-bottom: 0;
+    border-image: linear-gradient($header-background, $header-background) fill 0 / 0 / 0 100vmax;
+
+    // The site title links to the start page; as in the brand of the
+    // bootstrap-italia header (components/_headercenter.scss:26), no underline.
+    .title a {
+      text-decoration: none;
+    }
+
+    // Centre header measures of bootstrap-italia (base/_variables.scss:1817-1828):
+    // 80px, a 20px name and a 48px logo on small screens; 120px, 28px and
+    // 82px from the lg breakpoint. On phones the browser puts its buttons on
+    // a row of their own, so the band is taller than 80px there.
+    align-items: center;
+    min-height: 80px;
+    --sb-header-font-size: 1.25rem;
+    --sb-logo-height: 48px;
+
+    > .col-md-12 > .title .header-title {
+      gap: 8px; // $header-center-icon-margin-mob
+    }
+
+    @include media-breakpoint-up(lg) {
+      min-height: 120px;
+      --sb-header-font-size: 1.75rem;
+      --sb-logo-height: 82px;
+      transition: padding-top 0.2s ease-in-out;
+
+      > .col-md-12 > .title .header-title {
+        gap: 16px; // $header-center-icon-margin
+
+        .logo {
+          transition: height 0.2s ease-in-out;
+        }
+
+        span[role="banner"] {
+          transition: font-size 0.2s ease-in-out;
+        }
+      }
+    }
+  }
+
+  // When the page scrolls, the browser sets .scrolled on its sticky header.
+  // From lg the header then moves up by 48px: 72px of the band stay on
+  // screen, the height of the browser's own header, and name and logo go
+  // back to the browser's sizes. The bootstrap-italia sticky header shrinks
+  // in a similar way. The header keeps its height in the page, so the
+  // content does not jump. Below lg the browser already hides the band.
+  @include media-breakpoint-up(lg) {
+    > header {
+      transition: box-shadow 0.2s ease-in-out, top 0.2s ease-in-out;
+
+      &.scrolled {
+        top: calc(var(--sb-header-margin) - 48px);
+
+        .site {
+          padding-top: calc(var(--sb-block-gap) + 48px);
+          --sb-header-font-size: #{$header-font-size};
+          --sb-logo-height: #{$logo-height};
+        }
+      }
+    }
+  }
+
+  > header .page h1,
+  h2 {
+    color: $headings-color;
+  }
+
+  // Footer (Designers Italia footer).
+  > footer {
+    border-top: 0; // the browser's grey rule would show on the blue band
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    border-image: linear-gradient($it-footer-top, $it-footer-top) fill 0 / 0 / 0 100vmax;
+    color: #fff;
+    // Links first, then the line on who runs the site (footer-start widget),
+    // then the browser's credits.
+    display: flex;
+    flex-direction: column;
+
+    .footer-links {
+      order: -1;
+    }
+
+    .custom-text {
+      font-size: $font-size-sm;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    a,
+    .text-body-secondary {
+      color: #fff !important;
+    }
+  }
+}

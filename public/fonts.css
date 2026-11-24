@@ -1,0 +1,38 @@
+/* Titillium Web and Roboto Mono, the fonts of the Italian public
+   administration design system, served from this site (latin subset).
+   Licences: fonts/OFL-titillium-web.txt, fonts/OFL-roboto-mono.txt. */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("./fonts/titillium-web-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/titillium-web-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/titillium-web-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/titillium-web-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/roboto-mono-latin-400-normal.woff2") format("woff2");
+}

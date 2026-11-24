@@ -1,0 +1,73 @@
+{
+  "assets": {
+    "formatHelp": "Scopri come convertire i formati"
+  },
+  "builtOn": "basato su",
+  "index": {
+    "portolanRegistry": "registro Portolan",
+    "registryCollections": "{count} collezione | {count} collezioni",
+    "registryCountsPartial": "{counts} finora",
+    "registryFeatures": "{count} feature | {count} feature",
+    "registryLoading": "Caricamento del registro Portolan…",
+    "registryUnavailable": "Impossibile caricare il registro Portolan. Puoi comunque inserire l'URL di un catalogo qui sopra.",
+    "selectFromRegistry": "... oppure scegli uno dei cataloghi italiani del {registry}:",
+    "searchRegistry": "Cerca per nome o URL",
+    "searchRegistryNoMatch": "Nessun catalogo corrisponde a \"{query}\"."
+  },
+  "mapping": {
+    "layers": {
+      "overflow": "Altri {count} livelli non mostrati"
+    },
+    "styles": {
+      "legend": "Legenda",
+      "select": "Scegli lo stile della mappa"
+    },
+    "vectorFallback": {
+      "loadError": "Impossibile caricare i dati GeoParquet per la mappa.",
+      "reprojectionFailed": "Nessuna feature si può posizionare sulla mappa. Il file dichiara {crs}, ma le sue coordinate cadono fuori da quel sistema: il CRS dichiarato potrebbe non corrispondere ai dati.",
+      "tooBig": "Il file GeoParquet è troppo grande per la mappa ({size} MB, limite {maxSize} MB).",
+      "tooLarge": "I dati GeoParquet hanno {count} feature, troppe per mostrarle direttamente sulla mappa (limite: {max})."
+    },
+    "zarr": {
+      "chunkShape": "{title} non è suddiviso in chunk adatti alla mappa: una tessera leggerebbe {factor} volte i dati che disegna, quindi il browser non lo mostra.",
+      "codec": "{title} è compresso con {codecs}, che il browser non sa decodificare.",
+      "crs": "{title} usa la proiezione {projection}, che il browser non sa riproiettare.",
+      "loadError": "Impossibile caricare i dati Zarr per la mappa.",
+      "noGeo": "{title} non dichiara un riferimento spaziale, quindi il browser non può posizionarlo sulla mappa.",
+      "orderAxes": "{title} non memorizza le dimensioni spaziali {y} e {x} come ultimi due assi, in quest'ordine. Il browser non sa trasporre un array, quindi non può mostrarlo.",
+      "orderColumnMajor": "{title} è memorizzato per colonne (ordine Fortran). Il browser sa disegnare solo array memorizzati per righe.",
+      "orderTranspose": "{title} ha un codec di trasposizione che riordina gli assi in {order}. Il browser sa disegnare solo array memorizzati per righe.",
+      "zoomIn": "Ingrandisci fino al livello {zoom} per vedere questi dati Zarr.",
+      "zoomInNoOverviews": "Questo archivio Zarr non ha panoramiche, quindi si vede solo dal livello {zoom}. Ingrandisci per vederlo."
+    }
+  },
+  "metadata": {
+    "additional": "Metadati aggiuntivi"
+  },
+  "parquet": {
+    "allColumns": "Tutte le colonne",
+    "dataPreview": "Anteprima dei dati",
+    "filterPlaceholder": "Filtra le righe...",
+    "globUnresolved": "Anteprima non disponibile: l'href è un pattern su molti file e i metadati degli Elementi della Collezione non indicano un file.",
+    "loadFailed": "Caricamento dei dati Parquet non riuscito: {message}",
+    "loadedRowCount": "{loaded} / {total} riga | {loaded} / {total} righe",
+    "loadingMetadata": "Caricamento dei metadati...",
+    "loadingRows": "Caricamento della riga ({count})... | Caricamento delle righe ({count})...",
+    "networkError": "Anteprima non disponibile: accesso cross-origin non consentito o errore di rete.",
+    "pageRows": "Riga {from}–{to} di {total} | Righe {from}–{to} di {total}",
+    "partitionedData": "Dati partizionati | Dati partizionati ({count} file) | Dati partizionati ({count} file)",
+    "partitionPreview": "Anteprima dell'unica partizione: {name}. | Anteprima della prima di {count} partizioni: {name}.",
+    "partitionLoadedRowCount": "{loaded} di {total} riga in questa partizione | {loaded} di {total} righe in questa partizione",
+    "partitionRowCount": "{count} riga in questa partizione | {count} righe in questa partizione",
+    "retry": "Riprova",
+    "rowCount": "{count} riga | {count} righe",
+    "showingOf": "Prima {loaded} di {total} riga | Prime {loaded} di {total} righe",
+    "zoomToFeature": "Zoom sulla feature"
+  },
+  "footerLinks": {
+    "legal": "Note legali",
+    "privacy": "Privacy",
+    "source": "Codice sorgente",
+    "official": "Portolan Browser ufficiale"
+  }
+}

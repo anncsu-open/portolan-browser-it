@@ -1,0 +1,11 @@
+{
+  "index": {
+    "selectFromRegistry": "... or select one of the Italian catalogs in the {registry}:"
+  },
+  "footerLinks": {
+    "legal": "Legal notes",
+    "privacy": "Privacy",
+    "source": "Source code",
+    "official": "Official Portolan Browser"
+  }
+}

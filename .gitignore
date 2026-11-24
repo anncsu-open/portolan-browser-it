@@ -1,0 +1,9 @@
+# Browser checkout used by the build, and its output
+.upstream/
+# Generated at build time from the registry export
+public/registry-it.json
+# Local agent workspace
+.superpowers/
+__pycache__/
+.pytest_cache/
+.DS_Store

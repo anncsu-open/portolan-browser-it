@@ -1,0 +1,12 @@
+@import "variables";
+
+#stac-browser {
+  // The bar's colour comes from $header / $header-background in variables.scss.
+  // Only the accent rule under it lives here.
+  > header .site {
+    border-bottom: 2px solid $primary;
+  }
+
+  > header .page {
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;

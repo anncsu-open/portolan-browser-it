@@ -1,0 +1,93 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  # Daily, after the Portolan registry revalidates its catalogs (between
+  # 14:00 and 18:00 UTC), so the list of Italian catalogs follows it.
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+
+      - name: Test the overlay scripts
+        run: |
+          uv run scripts/test_filter_registry.py
+          uv run scripts/test_apply_overlay.py
+
+      # A failed download stops the job, so the site already online stays up.
+      - name: Keep the Italian catalogs of the registry
+        run: |
+          curl --fail --silent --show-error --location --output registry.json \
+            https://raw.githubusercontent.com/portolan-sdi/portolan-registry/refs/heads/main/exports/catalogs.json
+          uv run scripts/filter_registry.py registry.json overrides.yaml public/registry-it.json
+
+      - name: Read the pinned browser release
+        id: browser
+        run: echo "tag=$(tr -d '[:space:]' < browser.version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the browser
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: portolan-sdi/portolan-browser
+          ref: ${{ steps.browser.outputs.tag }}
+          path: .upstream
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          version: 10
+          cache: true
+          cache_dependency_path: .upstream/pnpm-lock.yaml
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+
+      - name: Install the browser's dependencies
+        working-directory: .upstream
+        run: pnpm install --frozen-lockfile
+
+      # After the install: the applier checks our variables against Bootstrap's.
+      - name: Apply the overlay
+        run: uv run scripts/apply_overlay.py .upstream
+
+      - name: Build
+        working-directory: .upstream
+        env:
+          SB_CONFIG: ../config.it.js
+          SB_pathPrefix: /portolan-browser-it/
+        run: pnpm run build
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: .upstream/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

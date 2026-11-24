@@ -1,0 +1,16 @@
+// Header and footer of Designers Italia, from bootstrap-italia 2.18.3,
+// src/scss/base/_variables.scss. Appended after the browser's own header
+// variables, so these win; every variable derived from $header is set again.
+$header: #0066cc; // $header-center-bg-color = $primary, :1815
+$header-background: $header;
+$header-contrast: color-contrast($header);
+$header-color: #ffffff; // $header-center-text-color = $white, :1816
+$header-hover-color: #ffffff;
+$header-button-border-color: $header-color;
+$header-hover-button-border-color: $header-hover-color;
+$header-button-hover-background: rgba($header-contrast, 0.15);
+$header-button-active-background: rgba($header-contrast, 0.25);
+
+// Used by custom-it.scss.
+$it-footer-top: #004c99; // $footer-top-background = $primary-a8, :438
+$it-footer-bottom: #003366; // $footer-bottom-background = $primary-a10, :439
