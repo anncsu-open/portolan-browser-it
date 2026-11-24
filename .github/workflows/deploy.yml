@@ -25,6 +25,9 @@ jobs:
           persist-credentials: false
 
       - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          # The scripts declare their dependencies inline; there is no lock file.
+          cache-dependency-glob: scripts/*.py
 
       - name: Test the overlay scripts
         run: |

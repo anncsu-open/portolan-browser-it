@@ -76,7 +76,8 @@ apre il sito in un browser e controlla che:
 - l'header parta dal bordo superiore, alto 120px su desktop e 72px quando si
   scorre, con nome e logo più piccoli su telefono;
 - il menu della lingua si apra e passi all'inglese;
-- il footer dica chi gestisce il sito, in italiano e in inglese;
+- il footer dica chi gestisce il sito, in italiano e in inglese, e su telefono
+  abbia link alti almeno 24px;
 - la pagina non sbordi in orizzontale;
 - font, titoli, link, pulsanti, campi, schede, badge e tabelle abbiano i valori
   di Bootstrap Italia.

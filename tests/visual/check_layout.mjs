@@ -43,7 +43,11 @@ const disclaimer = () => page.evaluate(() => {
 });
 
 await page.goto(base);
+// Widgets and the registry list load asynchronously; on a cold cache they
+// arrive after the footer links. Wait for each element the checks read.
 await page.waitForSelector('#stac-browser > footer .footer-links');
+await page.waitForSelector('#stac-browser > footer .custom-text');
+await page.getByRole('link', { name: 'registro Portolan' }).waitFor();
 // No slim bar: the blue header starts at the top of the page.
 const top = await page.evaluate(() => ({
   slimBar: document.querySelectorAll('.it-slim').length,
@@ -91,6 +95,7 @@ if (!cardFont.includes('Titillium Web')) failures.push(`card titles use ${cardFo
 
 await page.waitForSelector('#stac-browser h2');
 await page.waitForSelector('.badge');
+await page.waitForSelector('table td');
 // Headings 40px and 32px at weight 500, cards with 4px corners, bold badges,
 // table cells with 8px padding.
 const catalogPage = await page.evaluate(() => {
@@ -151,7 +156,11 @@ if (!english || !english.text.startsWith('Not an institutional site')) failures.
 const phone = await browser.newPage({ viewport: { width: 375, height: 800 } });
 await phone.goto(catalog);
 await phone.waitForSelector('#stac-browser h2');
-const mobile = await phone.evaluate(`({ ...(${header})(), overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth })`);
+await phone.waitForSelector('#stac-browser > footer .footer-links a');
+const mobile = await phone.evaluate(`({ ...(${header})(), overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  footerLinkHeight: Math.min(...[...document.querySelectorAll('#stac-browser > footer .footer-links a')].map((a) => a.getBoundingClientRect().height)) })`);
+// WCAG 2.2 target size (minimum): 24px, which Lighthouse checks on phones.
+if (mobile.footerLinkHeight < 24) failures.push(`on a phone the footer links are ${mobile.footerLinkHeight}px high, expected at least 24`);
 if (mobile.siteName !== '20px 600') failures.push(`on a phone the site name is ${mobile.siteName}, expected 20px 600`);
 if (mobile.logoHeight !== 48) failures.push(`on a phone the logo is ${mobile.logoHeight}px high, expected 48`);
 if (mobile.overflow > 0) failures.push(`on a phone the page overflows by ${mobile.overflow}px`);

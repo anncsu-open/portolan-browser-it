@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pytest
 
-from apply_overlay import OverlayError, apply
+from apply_overlay import DESCRIPTION, OverlayError, apply
 
 ROOT = Path(__file__).resolve().parent.parent
 MINI = ROOT / "tests" / "fixtures" / "browser-mini"
@@ -144,10 +144,22 @@ def test_edits_index_html(overlay, browser):
     )
 
 
+def test_sets_a_default_description(overlay, browser):
+    # The browser fills these from a catalog's description; the start page
+    # has none, so it needs one of its own.
+    apply(overlay, browser)
+    html = read(browser / "index.html")
+    assert DESCRIPTION and '"' not in DESCRIPTION
+    assert f'id="meta-description" content="{DESCRIPTION}"' in html
+    assert f'id="og-description" content="{DESCRIPTION}"' in html
+
+
 @pytest.mark.parametrize(
     "anchor",
     [
         '<html lang="en">',
+        '<meta name="description" id="meta-description" content="">',
+        '<meta name="og:description" id="og-description" content="">',
         '<link rel="icon" type="image/svg+xml" href="/portolan-logo.svg">',
         '<link rel="preconnect" href="https://fonts.googleapis.com">',
         "</head>",

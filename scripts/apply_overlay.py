@@ -54,8 +54,22 @@ LOCALES = [
     ("locales/it/custom.json", "src/locales/it/custom.json"),
     ("locales/en/custom.json", "src/locales/en/custom.json"),
 ]
+# The browser copies a catalog's description into these two tags when it
+# opens one; the start page has no catalog, so it gets this text.
+DESCRIPTION = (
+    "Cataloghi di dati geografici italiani del registro Portolan, da "
+    "consultare con il Portolan Browser nel tema di Designers Italia."
+)
 INDEX_REPLACEMENTS = [
     ('<html lang="en">', '<html lang="it">'),
+    (
+        '<meta name="description" id="meta-description" content="">',
+        f'<meta name="description" id="meta-description" content="{DESCRIPTION}">',
+    ),
+    (
+        '<meta name="og:description" id="og-description" content="">',
+        f'<meta name="og:description" id="og-description" content="{DESCRIPTION}">',
+    ),
     (
         '<link rel="icon" type="image/svg+xml" href="/portolan-logo.svg">',
         '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',

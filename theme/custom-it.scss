@@ -139,6 +139,13 @@
 
     .footer-links {
       order: -1;
+
+      // At least 24px high, the WCAG 2.2 minimum target size: on phones the
+      // links wrap onto two lines and would sit too close to tap.
+      a {
+        display: inline-block;
+        padding-block: 0.25rem;
+      }
     }
 
     .custom-text {
